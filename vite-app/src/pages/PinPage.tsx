@@ -51,9 +51,9 @@ export function PinPage({ setPage, resetBalance }: any) {
       <div className="text-center">
         <p className="text-3xl mb-6 font-semibold">Enter your PIN</p>
         {/* four digit text section, starts out as four "_", then numbers get placed above them as entered */}
-        <div className="flex gap-4 mb-12">
+        <div className="flex gap-4 mb-8 mt-8">
           {[0, 1, 2, 3].map((index) => (
-            <div key={index} className="w-14 h-14 border-2 border-gray-400 rounded flex items-center justify-center text-2xl">
+            <div key={index} className="w-14 h-14 border-2 border-gray-400 rounded flex items-center justify-center text-2xl font-medium">
               {pin[index] || "_"}
             </div>
           ))}

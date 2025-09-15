@@ -9,7 +9,9 @@ interface SummaryPageProps {
 import { useState } from 'react';
 
 export function SummaryPage({ type, amount, currentBalance, setPage, updateBalance }: SummaryPageProps) {
-  const [layout, setLayout] = useState<1 | 2>(1);
+  const [layout, setLayout] = useState<1 | 2>(() => {
+    return (window as any).summaryLayout || 1;
+  });
   const title = type === 'withdraw' ? 'Withdrawal Summary' : 'Deposit Summary';
   const actionText = type === 'withdraw' ? 'Confirm Withdrawal' : 'Confirm Deposit';
   const operation = type === 'withdraw' ? '-' : '+';
@@ -50,13 +52,13 @@ export function SummaryPage({ type, amount, currentBalance, setPage, updateBalan
         <div className="flex gap-8">
           <button
             onClick={handleCancel}
-            className="w-32 h-16 bg-white border-2 border-gray-300 rounded-lg text-black text-xl font-semibold hover:bg-gray-100 active:bg-gray-100"
+            className="w-48 h-20 bg-white border-2 border-gray-300 rounded-lg text-black text-3xl font-semibold hover:bg-gray-100 active:bg-gray-100"
           >
             Cancel
           </button>
           <button
             onClick={handleConfirm}
-            className="w-56 h-16 bg-[#ffc72c] hover:bg-[#faa62e] active:bg-[#faa62e] rounded-lg text-black text-xl border-[#f0c028] border-2 font-semibold"
+            className="w-80 h-20 bg-[#ffc72c] hover:bg-[#faa62e] active:bg-[#faa62e] rounded-lg text-black text-3xl border-[#f0c028] border-2 font-semibold"
           >
             {actionText}
           </button>
@@ -65,7 +67,10 @@ export function SummaryPage({ type, amount, currentBalance, setPage, updateBalan
         {/* Layout toggle buttons */}
         <div className="fixed bottom-4 left-4 flex flex-col gap-2">
           <button
-            onClick={() => setLayout(1)}
+            onClick={() => {
+              setLayout(1);
+              (window as any).summaryLayout = 1;
+            }}
             className={`px-3 py-2 rounded text-white text-sm font-semibold ${
               layout === 1 ? 'bg-blue-400' : 'bg-blue-300 hover:bg-blue-350'
             }`}
@@ -73,7 +78,10 @@ export function SummaryPage({ type, amount, currentBalance, setPage, updateBalan
             Layout 1
           </button>
           <button
-            onClick={() => setLayout(2)}
+            onClick={() => {
+              setLayout(2);
+              (window as any).summaryLayout = 2;
+            }}
             className={`px-3 py-2 rounded text-white text-sm font-semibold ${
               layout === 2 ? 'bg-blue-400' : 'bg-blue-300 hover:bg-blue-350'
             }`}
