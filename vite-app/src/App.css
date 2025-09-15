@@ -16,9 +16,9 @@ html, body, #root {
     -webkit-tap-highlight-color: transparent;
 }
 
-/* Allow touch interactions but prevent zooming */
-html {
-    touch-action: manipulation;
+/* Prevent zooming and panning */
+body {
+    touch-action: none;
 }
 
 /* Ensure buttons still work properly */
