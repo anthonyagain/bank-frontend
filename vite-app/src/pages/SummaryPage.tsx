@@ -2,7 +2,7 @@ interface SummaryPageProps {
   type: 'withdraw' | 'deposit';
   amount: number;
   currentBalance: number;
-  setPage: (page: string) => void;
+  setPage: any;
   updateBalance: (newBalance: number) => void;
 }
 
