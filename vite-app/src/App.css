@@ -5,3 +5,23 @@ html, body, #root {
     width: 100%;
     background-color: #E5E5E5;
 }
+
+/* Prevent text selection and unwanted touch behaviors */
+* {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Allow touch interactions but prevent zooming */
+html {
+    touch-action: manipulation;
+}
+
+/* Ensure buttons still work properly */
+button {
+    touch-action: manipulation;
+}
