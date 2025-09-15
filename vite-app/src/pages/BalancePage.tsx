@@ -2,9 +2,9 @@ export function BalancePage({ setPage, currentBalance }: any) {
   return (
     <div className="h-full">
       {/* Main container with balance and buttons */}
-      <div className="flex flex-col items-center h-full gap-8">
+      <div className="flex flex-col items-center justify-center h-full gap-16 pb-15">
         {/* Balance window in center */}
-        <div className="bg-white border-2 border-gray-300 rounded-lg p-8 text-center shadow-sm mb-10 mt-8">
+        <div className="bg-white border-2 border-gray-300 rounded-lg p-8 text-center shadow-sm">
           <h2 className="text-3xl mb-6 font-semibold">Account Balance</h2>
           <p className="text-5xl font-bold text-green-600">${currentBalance}</p>
         </div>
