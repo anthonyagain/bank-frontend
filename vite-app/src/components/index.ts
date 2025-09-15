@@ -1,1 +1,1 @@
-export * from './IsabellaBankLogo';
+export * from './BankLogo';

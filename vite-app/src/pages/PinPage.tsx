@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-import { IsabellaBankLogo } from '../components';
-
 function PinPad({ pin, setPin, submit }: any) {
 
   const removeDigit = () => setPin(pin.slice(0, -1));
@@ -13,20 +11,20 @@ function PinPad({ pin, setPin, submit }: any) {
         <button
           key={digit}
           onClick={() => addDigit(digit)}
-          className="w-16 h-16 bg-white border-2 border-gray-300 rounded-lg text-xl font-semibold hover:bg-gray-100"
+          className="w-16 h-16 bg-white border-2 border-gray-300 rounded-lg text-xl font-semibold hover:bg-gray-100 active:bg-gray-100"
         >
           {digit}
         </button>
       ))}
       <button
         onClick={removeDigit}
-        className="w-16 h-16 bg-white border-2 border-gray-300 rounded-lg text-lg font-semibold hover:bg-gray-100"
+        className="w-16 h-16 bg-white border-2 border-gray-300 rounded-lg text-lg font-semibold hover:bg-gray-100 active:bg-gray-100"
       >
         ←
       </button>
       <button
         onClick={() => addDigit(0)}
-        className="w-16 h-16 bg-white border-2 border-gray-300 rounded-lg text-xl font-semibold hover:bg-gray-100"
+        className="w-16 h-16 bg-white border-2 border-gray-300 rounded-lg text-xl font-semibold hover:bg-gray-100 active:bg-gray-100"
       >
         0
       </button>
@@ -34,7 +32,7 @@ function PinPad({ pin, setPin, submit }: any) {
         onClick={submit}
         disabled={pin.length !== 4}
         className="
-          w-16 h-16 bg-[#ffc72c] hover:bg-[#faa62e] rounded-lg text-black text-lg border-[#f0c028] border-2 font-semibold
+          w-16 h-16 bg-[#ffc72c] hover:bg-[#faa62e] active:bg-[#faa62e] rounded-lg text-black text-lg border-[#f0c028] border-2 font-semibold
          disabled:bg-gray-300 disabled:border-gray-300 disabled:text-gray-400
         "
       >
@@ -44,19 +42,18 @@ function PinPad({ pin, setPin, submit }: any) {
   );
 }
 
-export function PinPage({ setPage }: any) {
+export function PinPage({ setPage, resetBalance }: any) {
 
   const [pin, setPin] = useState("");
 
   return (
-    <div className="flex flex-col items-center py-12 gap-8">
-      <IsabellaBankLogo className="h-48" />
+    <div className="flex flex-col items-center h-full">
       <div className="text-center">
-        <p className="text-2xl mb-6">Enter your PIN</p>
+        <p className="text-3xl mb-6 font-semibold">Enter your PIN</p>
         {/* four digit text section, starts out as four "_", then numbers get placed above them as entered */}
-        <div className="flex gap-4 mb-8">
+        <div className="flex gap-4 mb-12">
           {[0, 1, 2, 3].map((index) => (
-            <div key={index} className="w-12 h-12 border-2 border-gray-400 rounded flex items-center justify-center text-2xl">
+            <div key={index} className="w-14 h-14 border-2 border-gray-400 rounded flex items-center justify-center text-2xl">
               {pin[index] || "_"}
             </div>
           ))}
@@ -65,7 +62,12 @@ export function PinPage({ setPage }: any) {
       <PinPad
         pin={pin}
         setPin={setPin}
-        submit={() => pin.length === 4 && setPage('balance')}
+        submit={() => {
+          if (pin.length === 4) {
+            resetBalance();
+            setPage('balance');
+          }
+        }}
       />
     </div>
   )

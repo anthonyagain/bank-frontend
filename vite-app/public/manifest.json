@@ -3,7 +3,7 @@
   "short_name": "Isabella ATM",
   "description": "Isabella Bank ATM Application",
   "start_url": "/bank-frontend/",
-  "display": "standalone",
+  "display": "fullscreen",
   "background_color": "#E5E5E5",
   "theme_color": "#ffc72c",
   "orientation": "portrait",
