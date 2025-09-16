@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-export function useAnimatedNumber(targetValue: number, duration = 1000) {
+export function useAnimatedNumber(targetValue: number, duration = 1000, skipAnimation = false) {
   const [displayValue, setDisplayValue] = useState(targetValue);
   const animationRef = useRef<number | null>(null);
   const prevTargetRef = useRef(targetValue);
@@ -9,6 +9,12 @@ export function useAnimatedNumber(targetValue: number, duration = 1000) {
     const prevTarget = prevTargetRef.current;
 
     if (prevTarget === targetValue) return;
+
+    if (skipAnimation) {
+      setDisplayValue(targetValue);
+      prevTargetRef.current = targetValue;
+      return;
+    }
 
     console.log('Animating from', prevTarget, 'to', targetValue);
 

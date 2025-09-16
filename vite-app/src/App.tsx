@@ -21,12 +21,19 @@ export default function App() {
   const [pendingAmount, setPendingAmount] = useState<number | null>(null);
   const [currentBalance, setCurrentBalance] = useState<number>(200);
   const [moneyThreshold, setMoneyThreshold] = useState<number>(2500);
+  const [skipBalanceAnimation, setSkipBalanceAnimation] = useState<boolean>(true);
 
-  const animatedBalance = useAnimatedNumber(currentBalance, 1500);
+  const animatedBalance = useAnimatedNumber(currentBalance, 1500, skipBalanceAnimation);
   const { isAlertOpen: showPopup, fadeOut, showAlert } = useTemporaryAlert(5000);
+
+  const resetBalance = () => {
+    setSkipBalanceAnimation(true);
+    setCurrentBalance(200);
+  };
 
   const updateBalanceWithPopup = (newBalance: number) => {
     const oldBalance = currentBalance;
+    setSkipBalanceAnimation(false);
     setCurrentBalance(newBalance);
 
     // Check if we've crossed the threshold
@@ -43,7 +50,11 @@ export default function App() {
         <BankLogo className="h-48" />
         {page !== 'pin' && (
           <button
-            onClick={() => setPage('pin')}
+            onClick={() => {
+              resetBalance();
+              setPage('pin');
+              setMoneyThreshold(2500);
+            }}
             className="absolute top-6 right-6 bg-white border-2 border-gray-300 px-6 py-3 rounded-lg text-xl font-semibold hover:bg-gray-100 active:bg-gray-100"
           >
             Logout
@@ -51,7 +62,7 @@ export default function App() {
         )}
       </div>
       <div className="flex-1">
-        {page === 'pin' && <PinPage setPage={setPage} resetBalance={() => setCurrentBalance(200)} />}
+        {page === 'pin' && <PinPage setPage={setPage} resetBalance={resetBalance} />}
         {page === 'balance' && <BalancePage setPage={setPage} currentBalance={currentBalance} animatedBalance={animatedBalance} />}
         {page === 'withdraw' && (
           <AmountSelectionPage
