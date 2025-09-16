@@ -1,4 +1,4 @@
-export function BalancePage({ setPage, currentBalance }: any) {
+export function BalancePage({ setPage, currentBalance, animatedBalance }: any) {
   return (
     <div className="h-full">
       {/* Main container with balance and buttons */}
@@ -6,7 +6,7 @@ export function BalancePage({ setPage, currentBalance }: any) {
         {/* Balance window in center */}
         <div className="bg-white border-2 border-gray-300 rounded-lg p-8 text-center shadow-sm">
           <h2 className="text-3xl mb-6 font-semibold">Account Balance</h2>
-          <p className="text-5xl font-bold text-green-600">${currentBalance}</p>
+          <p className="text-5xl font-bold text-green-600">${animatedBalance}</p>
         </div>
 
         {/* Withdraw and deposit buttons at bottom */}

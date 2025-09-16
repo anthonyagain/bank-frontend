@@ -6,12 +6,13 @@ interface SummaryPageProps {
   updateBalance: (newBalance: number) => void;
 }
 
-import { useState } from 'react';
+// import { useState } from 'react';
 
 export function SummaryPage({ type, amount, currentBalance, setPage, updateBalance }: SummaryPageProps) {
-  const [layout, setLayout] = useState<1 | 2>(() => {
-    return (window as any).summaryLayout || 1;
-  });
+  // const [layout, setLayout] = useState<1 | 2>(() => {
+  //   return (window as any).summaryLayout || 1;
+  // });
+  const layout = 2;
   const title = type === 'withdraw' ? 'Withdrawal Summary' : 'Deposit Summary';
   const actionText = type === 'withdraw' ? 'Confirm Withdrawal' : 'Confirm Deposit';
   const operation = type === 'withdraw' ? '-' : '+';
@@ -31,7 +32,7 @@ export function SummaryPage({ type, amount, currentBalance, setPage, updateBalan
         <h1 className="text-3xl font-semibold">{title}</h1>
 
         <div className="bg-white border-2 border-gray-300 rounded-lg p-12 text-center shadow-sm">
-          {layout === 1 ? (
+          {(layout as any) === 1 ? (
             <div className="text-3xl">
               <div className="mb-4">Current Balance: <span className="font-bold text-green-600">${currentBalance}</span></div>
               <div className="mb-4">{operation} <span className="font-bold">${amount}</span></div>
@@ -65,7 +66,7 @@ export function SummaryPage({ type, amount, currentBalance, setPage, updateBalan
         </div>
 
         {/* Layout toggle buttons */}
-        <div className="fixed bottom-4 left-4 flex flex-col gap-2">
+      {/* <div className="fixed bottom-4 left-4 flex flex-col gap-2">
           <button
             onClick={() => {
               setLayout(1);
@@ -88,7 +89,7 @@ export function SummaryPage({ type, amount, currentBalance, setPage, updateBalan
           >
             Layout 2
           </button>
-        </div>
+        </div> */}
       </div>
   );
 }
