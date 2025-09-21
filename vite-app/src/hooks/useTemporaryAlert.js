@@ -26,6 +26,16 @@ export function useTemporaryAlert(duration = 3000, fadeOutDuration = 500) {
     }, duration);
   };
 
+  const hideAlert = () => {
+    // Clear existing timeouts if any
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (fadeOutTimeoutRef.current) clearTimeout(fadeOutTimeoutRef.current);
+
+    // Hide alert immediately
+    setIsAlertOpen(false);
+    setFadeOut(false);
+  };
+
   // Clean up timeouts on unmount
   useEffect(() => {
     return () => {
@@ -34,5 +44,5 @@ export function useTemporaryAlert(duration = 3000, fadeOutDuration = 500) {
     };
   }, []);
 
-  return { isAlertOpen, fadeOut, showAlert };
+  return { isAlertOpen, fadeOut, showAlert, hideAlert };
 }

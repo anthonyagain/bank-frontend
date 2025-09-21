@@ -29,9 +29,10 @@ export default function App() {
   // Dynamic alert message + type for the popup
   const [alertMessage, setAlertMessage] = useState<string>("");
   const [alertType, setAlertType] = useState<'positive' | 'warning'>('positive');
+  const [skipBalanceAnimation, setSkipBalanceAnimation] = useState<boolean>(true);
 
-  const animatedBalance = useAnimatedNumber(currentBalance, 1500);
-  const { isAlertOpen: showPopup, fadeOut, showAlert } = useTemporaryAlert(5000);
+  const animatedBalance = useAnimatedNumber(currentBalance, 1500, skipBalanceAnimation);
+  const { isAlertOpen: showPopup, fadeOut, showAlert, hideAlert } = useTemporaryAlert(5000);
 
   // Helper: currency formatter (no thousands separators)
   const formatCurrency = (amount: number) => `$${amount}`;
@@ -44,13 +45,14 @@ export default function App() {
       { amount: 600, message: "You're amazing at saving!" },
       { amount: 800, message: "That's an awesome deposit!" },
       { amount: 1000, message: "You're a saving superstar!" },
-      { amount: 1500, message: 'Keep saving—you’re unstoppable!' },
+      { amount: 1500, message: "Keep saving—you're unstoppable!" },
     ],
     []
   );
 
   const updateBalanceWithPopup = (newBalance: number) => {
     const oldBalance = currentBalance;
+    setSkipBalanceAnimation(false);
     setCurrentBalance(newBalance);
 
     // Determine direction of change
@@ -112,12 +114,14 @@ export default function App() {
   };
 
   const resetSession = () => {
+    setSkipBalanceAnimation(true);
     setCurrentBalance(200);
     setTriggeredThresholds(new Set());
     setLastMultiple2500(0);
     setLowBalanceWarned(false);
     setAlertMessage("");
     setAlertType('positive');
+    hideAlert();
   };
 
   return (
