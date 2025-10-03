@@ -2,14 +2,14 @@
   "name": "Isabella Bank ATM",
   "short_name": "Isabella ATM",
   "description": "Isabella Bank ATM Application",
-  "start_url": "/bank-frontend/",
+  "start_url": "/atm-app-frontend/",
   "display": "fullscreen",
   "background_color": "#E5E5E5",
   "theme_color": "#ffc72c",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/bank-frontend/isabella-bank-icon.png",
+      "src": "/atm-app-frontend/isabella-bank-icon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable any"
